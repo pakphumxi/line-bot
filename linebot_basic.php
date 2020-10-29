@@ -21,7 +21,7 @@ foreach ($request_json['events'] as $event)
 	} else {
 		$reply_message = 'ฉันได้รับ Event '.$event['type'].' ของคุณแล้ว!';
 	}
-	$reply_message = mySQL_selectAll('http://s61160189.kantit.com/json_select_users.php');
+	$reply_message = mySQL_selectAll('http://s61160189.kantit.com/json_select.php');
 	
 	// reply message
 	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
