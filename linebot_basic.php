@@ -6,19 +6,19 @@ $request = file_get_contents('php://input');   // Get request content
 
 $request_json = json_decode($request, true);   // Decode JSON request
 
-foreach ($request_json['events'] as $event)
-{
-	if ($event['type'] == 'message') 
-	{
-		if($event['message']['type'] == 'text')
-		{
-			$text = $event['message']['text'];
-			
-			$reply_message = 'ฉันได้รับข้อความ '. $text.' ของคุณแล้ว!';
-			$reply_message = mySQL_selectAll('http://s61160189.kantit.com/json_select.php');
-			
-		} else {
-			$reply_message = 'ฉันได้รับ '.$event['message']['type'].' ของคุณแล้ว!';
+foreach ($request_json['events'] as $event){
+	if ($event['type'] == 'message') {
+		if($event['message']['type'] == 'text'){
+			if($txts[0] == "@บอท"){
+				$reply_message = "กรุณาใช้รูปแบบคำสั่งที่ถูกต้องงงงง!!\n";		
+				$reply_message .= "ฉันมีบริการให้คุณสั่งได้ ดังนี้...\n";
+
+				$reply_message .= "พิมพ์ว่า \"@บอท ฉันต้องการค้นหาข้อมูลนิสิตชื่อ xxx\"\n";		
+
+				if($txts[1] == "ฉันต้องการค้นหาข้อมูลนิสิตชื่อ"){
+					$reply_message = mySQL_selectByName('http://bot.kantit.com/json_select_users.php'.?user_firstname'.$txts[3]);
+				}
+			}
 		}
 	} else {
 		$reply_message = 'ฉันได้รับ Event '.$event['type'].' ของคุณแล้ว!';
@@ -74,6 +74,20 @@ function mySQL_selectAll($url)
 		
 	foreach($result_json as $values) {
 		$data .= $values["id"] . " " . $values["stdid"] . " " . $values["fullname"] . "\r\n";
+	}
+	
+	return $data;
+}
+function mySQL_selectByName($url)
+{
+	$result = file_get_contents($url);
+	
+	$result_json = json_decode($result, true); //var_dump($result_json);
+	
+	$data = "ผลลัพธ์:\r\n";
+		
+	foreach($result_json as $values) {
+		$data .= "พบชื่อ". $values["user_firstname"] . " " . $values["user_lastname"] . "\r\n";
 	}
 	
 	return $data;
