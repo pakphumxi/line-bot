@@ -30,7 +30,7 @@ foreach ($request_json['events'] as $event)
 				$reply_message = "";
 				$datas = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
 				foreach($datas as $row){
-					if($row["user_firstname"] == "นาย".$arr[3] || $row["user_firstname"] == "นางสาว".$arr[3]){
+					if($row["user_firstname"] == "นาย".$arr[2] || $row["user_firstname"] == "นางสาว".$arr[2]){
 						$reply_message = "พบชื่อ". $row["user_firstname"]." ". $row["user_lastname"];
 					}
 				}
