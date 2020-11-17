@@ -28,12 +28,13 @@ foreach ($request_json['events'] as $event)
 				}
 			}
 			if($arr[1] == "ฉันต้องการค้นหาข้อมูลนิสิตชื่อ"){
-				$datas = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
-				foreach($datas as $row){
-					if($row["user_firstname"] == "นาย".$arr[3] || $row["user_firstname"] == "นางสาว".$arr[3]){
-						$reply_message = "พบชื่อ". $row["user_firstname"]." ". $row["user_lastname"];
-					}
-				}
+// 				$datas = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
+// 				foreach($datas as $row){
+// 					if($row["user_firstname"] == "นาย".$arr[3] || $row["user_firstname"] == "นางสาว".$arr[3]){
+// 						$reply_message = "พบชื่อ". $row["user_firstname"]." ". $row["user_lastname"];
+// 					}
+// 				}
+				$reply_message = $arr[1];
 			} 				
 		} else {
 			$reply_message = 'ฉันได้รับ '.$event['message']['type'].' ของคุณแล้ว!';
