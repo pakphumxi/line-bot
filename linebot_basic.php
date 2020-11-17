@@ -13,12 +13,9 @@ foreach ($request_json['events'] as $event)
 		if($event['message']['type'] == 'text')
 		{
 			$text = $event['message']['text'];
-			
-			$reply_message = 'ฉันได้รับข้อความ '. $text.' ของคุณแล้ว!';   
-			
-			$reply_message = "KANT";
-			
-			$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php?sid='.$text);	
+			$arr = explode(" ",$text); 
+			$reply_message = $arr;
+// 			$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php?sid='.$text);	
 		} else {
 			$reply_message = 'ฉันได้รับ '.$event['message']['type'].' ของคุณแล้ว!';
 		}
