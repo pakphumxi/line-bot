@@ -18,7 +18,7 @@ foreach ($request_json['events'] as $event)
 			
 			$reply_message = "KANT";
 			
-			$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php?pid'.$text);	
+			$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php?pid='.$text);	
 		} else {
 			$reply_message = 'ฉันได้รับ '.$event['message']['type'].' ของคุณแล้ว!';
 		}
