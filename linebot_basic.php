@@ -15,10 +15,17 @@ foreach ($request_json['events'] as $event)
 			$text = $event['message']['text'];
 			$arr = explode(" ",$text);
 			if($arr[0] == "@บอท"){
+				$reply_message .= "ฉันมีบริการให้คุณสั่งได้ ดังนี้...\n";
 				$reply_message .= "พิมพ์ว่า \"@บอท ฉันต้องการค้นหาข้อมูลนิสิตชื่อ\"\n";
 			}
-// 			$reply_message = $arr[1];
-// 			$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php?sid='.$text);	
+			if($arr[0] == "@บอท" && $arr[1] == "ฉันต้องการค้นหาข้อมูลนิสิตชื่อ"){
+				$datas = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
+				foreach($datas as $row){
+					if($row.user_firstname == $arr[3]){
+						$reply_message .= "พบชื่อ". $row.user_firstname." ". $row.user_lastname;
+					}
+				}
+			} 				
 		} else {
 			$reply_message = 'ฉันได้รับ '.$event['message']['type'].' ของคุณแล้ว!';
 		}
@@ -72,13 +79,13 @@ function mySQL_selectAll($url)
 	
 	$result_json = json_decode($result, true); //var_dump($result_json);
 	
-	$data = "ผลลัพธ์:\r\n";
+// 	$data = "ผลลัพธ์:\r\n";
 		
-	foreach($result_json as $values) {
-		$data .= $values["user_stuid"] . " " . $values["user_firstname"] ." ". $values["user_lastname"]."\r\n";
-	}
+// 	foreach($result_json as $values) {
+// 		$data .= $values["user_stuid"] . " " . $values["user_firstname"] ." ". $values["user_lastname"]."\r\n";
+// 	}
 	
-	return $data;
+	return $result_json;
 }
 
 ?>
