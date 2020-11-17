@@ -17,8 +17,15 @@ foreach ($request_json['events'] as $event)
 			if($arr[0] == "@บอท"){
 				$reply_message .= "ฉันมีบริการให้คุณสั่งได้ ดังนี้...\n";
 				$reply_message .= "พิมพ์ว่า \"@บอท ฉันต้องการค้นหาข้อมูลนิสิตชื่อ\"\n";
+				$reply_message .= "พิมพ์ว่า \"@บอท ขอรายชื่อนิสิตทั้งหมด\"\n";
 			}
-			if($arr[0] == "@บอท" && $arr[1] == "ฉันต้องการค้นหาข้อมูลนิสิตชื่อ"){
+			if($arr[1] == "ขอรายชื่อนิสิตทั้งหมด"){
+				$datas = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
+				foreach($datas as $row){
+					$reply_message .= "พบชื่อ". $row["user_firstname"]." ". $row["user_lastname"];
+				}
+			}
+			if($arr[1] == "ฉันต้องการค้นหาข้อมูลนิสิตชื่อ"){
 				$datas = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
 				foreach($datas as $row){
 					if($row["user_firstname"] == $arr[3]){
