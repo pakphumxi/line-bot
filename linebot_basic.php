@@ -8,32 +8,33 @@ $request_json = json_decode($request, true);   // Decode JSON request
 
 foreach ($request_json['events'] as $event)
 {
-	if ($event['type'] == 'message') 
-	{
-		if($event['message']['type'] == 'text')
-		{
+// 	if ($event['type'] == 'message') 
+// 	{
+// 		if($event['message']['type'] == 'text')
+// 		{
 			
-				$text = $event['message']['text']; 	
-				$reply_message = $text[1];
-				
-// 				$reply_message .= "ฉันมีบริการให้คุณสั่งได้ ดังนี้...\n";
-				
-// 				$reply_message .= "พิมพ์ว่า \"@บอท ขอรายชื่อนิสิตทั้งหมด\"\n";
-// 				$reply_message .= "พิมพ์ว่า \"@บอท ขอรายชื่อนิสิต รหัส 61160xxx\"\n";
-// 				$reply_message .= "พิมพ์ว่า \"@บอท ขอรหัส FTP ของ s61160xxx\"\r\n";
 				
 				
-// 				if($text[1] == " ฉันต้องการค้นหาข้อมูลนิสิตชื่อ"){
-// 					$reply_message = "พบชื่อ".$text[2];	
-// 				}
-// 				$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php?sid='.$text);
-		}	
+// // 				$reply_message .= "ฉันมีบริการให้คุณสั่งได้ ดังนี้...\n";
+				
+// // 				$reply_message .= "พิมพ์ว่า \"@บอท ขอรายชื่อนิสิตทั้งหมด\"\n";
+// // 				$reply_message .= "พิมพ์ว่า \"@บอท ขอรายชื่อนิสิต รหัส 61160xxx\"\n";
+// // 				$reply_message .= "พิมพ์ว่า \"@บอท ขอรหัส FTP ของ s61160xxx\"\r\n";
+				
+				
+// // 				if($text[1] == " ฉันต้องการค้นหาข้อมูลนิสิตชื่อ"){
+// // 					$reply_message = "พบชื่อ".$text[2];	
+// // 				}
+// // 				$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php?sid='.$text);
+// 		}	
 		
-	} else {
-		$reply_message = 'ฉันได้รับ Event ' . $event['type'] . ' ของคุณแล้ว!';
-	}
+// 	} else {
+// 		$reply_message = 'ฉันได้รับ Event ' . $event['type'] . ' ของคุณแล้ว!';
+// 	}
 	
-	if($reply_message == null || $reply_message == ""){ $reply_message =  'ขออภัยฉันไม่สามารถตอบกลับข้อความ "'. $text . '" ของคุณ!'; }
+	$text = $event['message']['text']; 	
+	$reply_message = $text[0];
+	if($reply_message == null || $reply_message == ""){ $reply_message =  'ขออภัยฉันไม่พบชื่อนิสิต "'. $text ; }
 		
 	// reply message
 	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);	
@@ -49,7 +50,7 @@ function mySQL_selectAll($url)
 	
 	$result_json = json_decode($result, true); //var_dump($result_json);
 	
-	$data = "ผลลัพธ์:\r\n";
+	$data = "พบชื่อ:\r\n";
 		
 	foreach($result_json as $values) {
 		$data .= $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "\r\n";
