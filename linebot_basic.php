@@ -33,7 +33,7 @@ foreach ($request_json['events'] as $event)
 						$reply_message = "พบชื่อ". $row["user_firstname"]." ". $row["user_lastname"];
 					}
 				}
-				$reply_message = $arr[1];
+// 				$reply_message = $arr[1];
 			} 				
 		} else {
 			$reply_message = 'ฉันได้รับ '.$event['message']['type'].' ของคุณแล้ว!';
