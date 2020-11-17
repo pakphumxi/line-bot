@@ -13,7 +13,7 @@ foreach ($request_json['events'] as $event)
 		if($event['message']['type'] == 'text')
 		{
 			
-				$text = $event['message']; 	
+				$text = $event['message']['text']; 	
 				$reply_message = $text;
 				
 // 				$reply_message .= "ฉันมีบริการให้คุณสั่งได้ ดังนี้...\n";
