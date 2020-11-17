@@ -12,18 +12,18 @@ foreach ($request_json['events'] as $event)
 	{
 		if($event['message']['type'] == 'text')
 		{
+			
+				$text = $event['message']; 	
+				$reply_message = $text;
 				
-				$reply_message = "กรุณาใช้รูปแบบคำสั่งที่ถูกต้องงงงง!!\n";
+// 				$reply_message .= "ฉันมีบริการให้คุณสั่งได้ ดังนี้...\n";
 				
-				$reply_message .= "ฉันมีบริการให้คุณสั่งได้ ดังนี้...\n";
-				
-				$reply_message .= "พิมพ์ว่า \"@บอท ขอรายชื่อนิสิตทั้งหมด\"\n";
-				$reply_message .= "พิมพ์ว่า \"@บอท ขอรายชื่อนิสิต รหัส 61160xxx\"\n";
-				$reply_message .= "พิมพ์ว่า \"@บอท ขอรหัส FTP ของ s61160xxx\"\r\n";
+// 				$reply_message .= "พิมพ์ว่า \"@บอท ขอรายชื่อนิสิตทั้งหมด\"\n";
+// 				$reply_message .= "พิมพ์ว่า \"@บอท ขอรายชื่อนิสิต รหัส 61160xxx\"\n";
+// 				$reply_message .= "พิมพ์ว่า \"@บอท ขอรหัส FTP ของ s61160xxx\"\r\n";
 				
 				
-				$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
-			}
+// 				$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php?sid='.$text);
 		}	
 		
 	} else {
