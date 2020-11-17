@@ -20,6 +20,7 @@ foreach ($request_json['events'] as $event)
 				$reply_message .= "พิมพ์ว่า \"@บอท ขอรายชื่อนิสิตทั้งหมด\"\n";
 			}
 			if($arr[1] == "ขอรายชื่อนิสิตทั้งหมด"){
+				$reply_message = "";
 				$datas = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
 				foreach($datas as $row){
 					$reply_message .= "พบชื่อ". $row["user_firstname"]." ". $row["user_lastname"] . "\n";
