@@ -21,8 +21,8 @@ foreach ($request_json['events'] as $event)
 			if($arr[0] == "@บอท" && $arr[1] == "ฉันต้องการค้นหาข้อมูลนิสิตชื่อ"){
 				$datas = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
 				foreach($datas as $row){
-					if($row.user_firstname == $arr[3]){
-						$reply_message .= "พบชื่อ". $row.user_firstname." ". $row.user_lastname;
+					if($row["user_firstname"] == $arr[3]){
+						$reply_message .= "พบชื่อ". $row["user_firstname"]." ". $row["user_lastname"];
 					}
 				}
 			} 				
