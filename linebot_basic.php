@@ -8,72 +8,32 @@ $request_json = json_decode($request, true);   // Decode JSON request
 
 foreach ($request_json['events'] as $event)
 {
-// 	if ($event['type'] == 'message') 
-// 	{
-// 		if($event['message']['type'] == 'text')
-// 		{
+	if ($event['type'] == 'message') 
+	{
+		if($event['message']['type'] == 'text')
+		{
+			$text = $event['message']['text'];
 			
-				
-				
-// // 				$reply_message .= "ฉันมีบริการให้คุณสั่งได้ ดังนี้...\n";
-				
-// // 				$reply_message .= "พิมพ์ว่า \"@บอท ขอรายชื่อนิสิตทั้งหมด\"\n";
-// // 				$reply_message .= "พิมพ์ว่า \"@บอท ขอรายชื่อนิสิต รหัส 61160xxx\"\n";
-// // 				$reply_message .= "พิมพ์ว่า \"@บอท ขอรหัส FTP ของ s61160xxx\"\r\n";
-				
-				
-// // 				if($text[1] == " ฉันต้องการค้นหาข้อมูลนิสิตชื่อ"){
-// // 					$reply_message = "พบชื่อ".$text[2];	
-// // 				}
-// // 				$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php?sid='.$text);
-// 		}	
-		
-// 	} else {
-// 		$reply_message = 'ฉันได้รับ Event ' . $event['type'] . ' ของคุณแล้ว!';
-// 	}
+			$reply_message = 'ฉันได้รับข้อความ '. $text.' ของคุณแล้ว!';   
+			
+			$reply_message = "KANT";
+			
+			$reply_message = mySQL_selectAll('http://s61160080.kantit.com/json_select.php');
+			
+		} else {
+			$reply_message = 'ฉันได้รับ '.$event['message']['type'].' ของคุณแล้ว!';
+		}
+	} else {
+		$reply_message = 'ฉันได้รับ Event '.$event['type'].' ของคุณแล้ว!';
+	}
 	
-	$text = $event['message']['text']; 	
-	$reply_message = $text[1];
-	if($reply_message == null || $reply_message == ""){ $reply_message =  'ขออภัยฉันไม่พบชื่อนิสิต "'. $text ; }
-		
 	// reply message
-	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);	
-	$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];	
-	$post_body = json_encode($data);	
-	//$send_result = replyMessage('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
-	$send_result = send_reply_message('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);	
+	$post_header = array('Content-Type: application/json', 'Authorization: Bearer ' . $channelAccessToken);
+	$data = ['replyToken' => $event['replyToken'], 'messages' => [['type' => 'text', 'text' => $reply_message]]];
+	$post_body = json_encode($data);
+	$send_result = replyMessage('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
+	//$send_result = send_reply_message('https://api.line.me/v2/bot/message/reply', $post_header, $post_body);
 }
-
-function mySQL_selectAll($url)
-{
-	$result = file_get_contents($url);
-	
-	$result_json = json_decode($result, true); //var_dump($result_json);
-	
-	$data = "พบชื่อ:\r\n";
-		
-	foreach($result_json as $values) {
-		$data .= $values["user_stuid"] . " " . $values["user_firstname"] . " " . $values["user_lastname"] . "\r\n";
-	}
-	
-	return $data;
-}
-
-function mySQL_selectFTP($url)
-{
-	$result = file_get_contents($url);
-	
-	$result_json = json_decode($result, true); //var_dump($result_json);
-	
-	$data = "ผลลัพธ์:\r\n";
-		
-	foreach($result_json as $values) {
-		$data .= $values["user_password"] . "\r\n";
-	}
-	
-	return "รหัส FTP ของคุณคือ ".$data;
-}
-
 
 function replyMessage($url, $post_header, $post_body)
 {
@@ -86,7 +46,7 @@ function replyMessage($url, $post_header, $post_body)
         ]);
 	
 	$result = file_get_contents($url, false, $context);
-	
+
 	return $result;
 }
 
@@ -104,6 +64,21 @@ function send_reply_message($url, $post_header, $post_body)
 	curl_close($ch);
 	
 	return $result;
+}
+
+function mySQL_selectAll($url)
+{
+	$result = file_get_contents($url);
+	
+	$result_json = json_decode($result, true); //var_dump($result_json);
+	
+	$data = "ผลลัพธ์:\r\n";
+		
+	foreach($result_json as $values) {
+		$data .= $values["stuid"] . " " . $values["fullname"] . "\r\n";
+	}
+	
+	return $data;
 }
 
 ?>
