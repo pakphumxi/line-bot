@@ -33,7 +33,7 @@ foreach ($request_json['events'] as $event)
 // 	}
 	
 	$text = $event['message']['text']; 	
-	$reply_message = $text[0];
+	$reply_message = $text[1];
 	if($reply_message == null || $reply_message == ""){ $reply_message =  'ขออภัยฉันไม่พบชื่อนิสิต "'. $text ; }
 		
 	// reply message
