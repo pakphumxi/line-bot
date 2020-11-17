@@ -26,8 +26,7 @@ foreach ($request_json['events'] as $event)
 				foreach($datas as $row){
 					$reply_message .= $row["user_firstname"]." ". $row["user_lastname"] . "\n";
 				}
-			}
-			if($arr[1] == "ฉันต้องการค้นหาข้อมูลนิสิตชื่อ"){
+			}else if($arr[1] == "ฉันต้องการค้นหาข้อมูลนิสิตชื่อ"){
 // 				$datas = mySQL_selectAll('http://bot.kantit.com/json_select_users.php');
 // 				foreach($datas as $row){
 // 					if($row["user_firstname"] == "นาย".$arr[3] || $row["user_firstname"] == "นางสาว".$arr[3]){
