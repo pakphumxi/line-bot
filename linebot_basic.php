@@ -14,7 +14,7 @@ foreach ($request_json['events'] as $event)
 		{
 			$text = $event['message']['text'];
 			$arr = explode(" ",$text); 
-			$reply_message = $arr;
+			$reply_message = $arr[0];
 // 			$reply_message = mySQL_selectAll('http://bot.kantit.com/json_select_users.php?sid='.$text);	
 		} else {
 			$reply_message = 'ฉันได้รับ '.$event['message']['type'].' ของคุณแล้ว!';
